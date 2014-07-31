@@ -3,15 +3,19 @@
 body{
 	background-color: black;
 }
+
 .commandLine{
 	color: white;	
 }
+
 .lineText{
 	display: inline;
 }
-#cursor{
+
+.cursorOn{
 	text-decoration: underline;
 }
+
 #debug{
 	color: red;
 }
