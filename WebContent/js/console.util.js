@@ -141,3 +141,22 @@ function appendLineTo(target) {
 	newLine.appendTo(target);
 	return newLine;
 }
+
+
+/**
+ * 从传入的行对象中读取里面的文本内容
+ * @param {} line
+ */
+function extractCommand(line){
+	var command = "";
+	
+	line.children(".lineText").each(function(k, v){
+		content = $(v).html();
+		
+		//筛去第一个（用户名部分），空格部分以及空白部分
+		if( k!=0 && content != "&nbsp;" && content != "" )
+			command += content;
+	});
+	
+	return command;
+}
