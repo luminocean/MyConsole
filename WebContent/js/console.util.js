@@ -154,7 +154,7 @@ function extractCommand(line){
 		content = $(v).text();
 		
 		//筛去第一个（用户名部分），空格部分以及空白部分
-		if( k!=0 && content != " " && content != "" )
+		if( k!=0 && !new RegExp("\\s").test(content) && content != "" )
 			command += content;
 	});
 	
