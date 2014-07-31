@@ -15,7 +15,7 @@ function shiftCursor(direction, target) {
 	text2 = target.children(":eq(3)");
 
 	if (!direction) {
-		content1 = text1.html();
+		content1 = text1.text();
 
 		// 如果第一个节点元素还有东西的话
 		if (content1.length > 0) {
@@ -23,38 +23,38 @@ function shiftCursor(direction, target) {
 			lastChar = content1.charAt(content1.length - 1);
 			// text1去尾
 			content1 = content1.substring(0, content1.length - 1);
-			text1.html(content1);
+			text1.text(content1);
 
 			// 在设置cursor以前，如果cursor里面由东西则避难到text2里面去
-			cc = cursor.html();
-			if (cursor.html() != "&nbsp;") {
-				text2.prepend(cursor.html());
+			cc = cursor.text();
+			if (cursor.text() != " ") {
+				text2.prepend(cursor.text());
 			}
 			// 填充cursor
-			cursor.html(lastChar);
+			cursor.text(lastChar);
 		}
 	} else {
-		content2 = text2.html();
+		content2 = text2.text();
 
 		if (content2.length > 0) {
 			// 获取text2中第一个字符
 			firstChar = content2.charAt(0);
 			// text2去头
 			content2 = content2.substring(1, content2.length);
-			text2.html(content2);
+			text2.text(content2);
 
 			// 在设置cursor以前，如果cursor里面由东西则避难到text1里面去
-			if (cursor.html() != "&nbsp") {
-				text1.append(cursor.html());
+			if (cursor.text() != "&nbsp") {
+				text1.append(cursor.text());
 			}
 			// 填充cursor
-			cursor.html(firstChar);
+			cursor.text(firstChar);
 		}
 		// 如果右边没有内容了再往右就显示出空的光标
-		else if (content2.length == 0 && cursor.html() != "&nbsp;") {
-			text1.append(cursor.html());
+		else if (content2.length == 0 && cursor.text() != " ") {
+			text1.append(cursor.text());
 
-			cursor.html("&nbsp;");
+			cursor.text(" ");
 		}
 	}
 
@@ -82,9 +82,9 @@ function write(c, target) {
 function erase(c, target) {
 	text1 = target.children(":eq(1)"); // 等于 target.children().eq(1)
 
-	content = text1.html();
+	content = text1.text();
 	content = content.substring(0, content.length - 1);
-	text1.html(content);
+	text1.text(content);
 }
 
 /**
@@ -114,14 +114,14 @@ function appendLineTo(target) {
 
 	// 嵌入显示的用户名
 	userName = $("<p></p>");
-	userName.html("user $ ");
+	userName.text("user $ ");
 	userName.addClass("lineText");
 	userName.addClass("userName");
 	newLine.append(userName);
 
 	// 嵌入（空的）文本节点（前半部分
 	text = $("<p></p>");
-	text.html("");
+	text.text("");
 	text.addClass("lineText");
 	newLine.append(text);
 
@@ -134,7 +134,7 @@ function appendLineTo(target) {
 
 	// 嵌入（空的）文本节点（后半部分
 	text = $("<p></p>");
-	text.html("");
+	text.text("");
 	text.addClass("lineText");
 	newLine.append(text);
 
@@ -151,10 +151,10 @@ function extractCommand(line){
 	var command = "";
 	
 	line.children(".lineText").each(function(k, v){
-		content = $(v).html();
+		content = $(v).text();
 		
 		//筛去第一个（用户名部分），空格部分以及空白部分
-		if( k!=0 && content != "&nbsp;" && content != "" )
+		if( k!=0 && content != " " && content != "" )
 			command += content;
 	});
 	
