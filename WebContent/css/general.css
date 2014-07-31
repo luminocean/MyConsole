@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: black;
+}
+.commandLine{
+	color: white;	
+}
+.lineText{
+	display: inline;
+}
+#cursor{
+	text-decoration: underline;
+}
+#debug{
+	color: red;
+}
