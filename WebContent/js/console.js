@@ -4,6 +4,8 @@
  
  
 var currentLine;
+var engine = new Engine();
+
 /**
  * 建立初始行并设置键盘监听
  */
