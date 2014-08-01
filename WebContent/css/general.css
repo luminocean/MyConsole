@@ -4,18 +4,28 @@ body{
 	background-color: black;
 }
 
+/* 输入行相关 */
 .commandLine{
 	color: white;	
 }
-
 .lineText{
 	display: inline;
 }
-
 .cursorOn{
 	text-decoration: underline;
 }
 
+/* 调试 */
 #debug{
 	color: red;
+}
+
+/* 右键菜单 */
+#rightClick{
+	position: fixed;
+	left: 200px;
+	top: 200px;
+	
+	background-color: orange;
+	display: none;
 }

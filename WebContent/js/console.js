@@ -11,8 +11,9 @@ var engine = new Engine();
 $(document).ready(function() {
 			// 加载完所有js后回调的初始化函数
 			var initFunc = function() {
-				currentLine = appendLineTo($("#console"));
+				currentLine = Console.appendLineTo($("#console"));
 				setupKeyboardListener();
+				setupMouseListener();
 				// setupTimer();
 			};
 
@@ -23,6 +24,21 @@ $(document).ready(function() {
 			initFunc();
 		});
 
+		
+function setupMouseListener(){
+	$(document).click(function(e){
+		switch( e.which ){
+			//鼠标右键
+			case 3:
+				Console.showRightClick(e.pageX, e.pageX);
+				e.preventDefault();
+				break;
+		}
+	});
+	
+}
+		
+		
 /**
  * 设置键盘监听
  */
@@ -30,8 +46,8 @@ function setupKeyboardListener() {
 	//可显示字符部分
 	$(document).keypress(function(e) {
 				// 可显示字符直接接在当前行后面
-				if (isDisplayable(e.which)) {
-					write(String.fromCharCode(e.which), currentLine);
+				if (Console.isDisplayable(e.which)) {
+					Console.write(String.fromCharCode(e.which), currentLine);
 				}
 				
 			});
@@ -42,28 +58,28 @@ function setupKeyboardListener() {
 				// 回车键则换行
 				if (e.keyCode == 13) {
 					typeInCommand(currentLine);
-					currentLine = appendLineTo($("#console"));
+					currentLine = Console.appendLineTo($("#console"));
 				}
 				
 				// 删除键删除最后一个字符
 				if (e.keyCode == 8) {
-					erase(String.fromCharCode(e.which), currentLine);
+					Console.erase(String.fromCharCode(e.which), currentLine);
 					e.preventDefault();
 				}
 
 				// 左方向键
 				if (e.keyCode == 37) {
-					shiftCursor(false, currentLine);
+					Console.shiftCursor(false, currentLine);
 				}
 				// 右方向键
 				if (e.keyCode == 39) {
-					shiftCursor(true, currentLine);
+					Console.shiftCursor(true, currentLine);
 				}
 			});
 }
 
 function typeInCommand(line) {
-	var command = extractCommand(line);
+	var command = Console.extractCommand(line);
 
 	// 将命令传入引擎开始执行
 	engine.act(command);

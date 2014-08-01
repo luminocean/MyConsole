@@ -2,6 +2,18 @@
  * 控制台的工具方法
  */
 
+//Console相关方法的命名空间
+var Console = {};
+
+
+/**
+ * 显示右键菜单
+ * @param {} pageX
+ * @param {} pageY
+ */
+Console.showRightClick = function(pageX, pageY){
+	$("#rightClick").css("display", "inherit");
+};
 
 /**
  * 平移光标
@@ -9,7 +21,7 @@
  * @param  direction
  * @param  target
  */
-function shiftCursor(direction, target) {
+Console.shiftCursor = function(direction, target) {
 	text1 = target.children(":eq(1)");
 	cursor = target.children(":eq(2)");
 	text2 = target.children(":eq(3)");
@@ -58,7 +70,7 @@ function shiftCursor(direction, target) {
 		}
 	}
 
-}
+};
 
 /**
  * 向目标行写入字符
@@ -67,32 +79,32 @@ function shiftCursor(direction, target) {
  * @param {} c
  * @param {} target
  */
-function write(c, target) {
+Console.write = function(c, target) {
 	// 第一个text元素
 	text1 = target.children(":eq(1)"); // 等于 target.children().eq(1)
 
 	text1.append(c);
-}
+};
 
 /**
  * write的逆向操作
  * @param {} c
  * @param {} target
  */
-function erase(c, target) {
+Console.erase = function(c, target) {
 	text1 = target.children(":eq(1)"); // 等于 target.children().eq(1)
 
 	content = text1.text();
 	content = content.substring(0, content.length - 1);
 	text1.text(content);
-}
+};
 
 /**
  * 判断字符是否可以显示
  * @param {} code
  * @return {Boolean}
  */
-function isDisplayable(code) {
+Console.isDisplayable = function(code) {
 	if (code >= 32 && code <= 126)
 		return true;
 }
@@ -102,7 +114,7 @@ function isDisplayable(code) {
  * @param target 添加行的目标
  * @return 添加的新行本身
  */
-function appendLineTo(target) {
+Console.appendLineTo = function(target) {
 	//如果已经存在一个当前行了（除非是加的第一行，否则基本上是一直在的）
 	//就把当前行里面光标点亮的标记去掉（因为要加到下一行上）
 	if (currentLine)
@@ -140,14 +152,14 @@ function appendLineTo(target) {
 
 	newLine.appendTo(target);
 	return newLine;
-}
+};
 
 
 /**
  * 从传入的行对象中读取里面的文本内容
  * @param {} line
  */
-function extractCommand(line){
+Console.extractCommand = function(line){
 	var command = "";
 	
 	line.children(".lineText").each(function(k, v){
@@ -159,4 +171,4 @@ function extractCommand(line){
 	});
 	
 	return command;
-}
+};
