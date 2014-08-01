@@ -14,7 +14,7 @@ $(document).ready(function() {
 				currentLine = Console.appendLineTo($("#console"));
 				Console.setupKeyboardListener();
 				Console.setupMouseListener();
-				// Console.setupTimer();
+				Console.setupTimer();
 			};
 
 			// 加载所有依赖的js脚本
@@ -130,7 +130,7 @@ Console.loadBatchJs = function(callBack) {
 /**
  * 设置计时器，主要用于让光标周期性的闪烁
  */
-function setupTimer() {
+Console.setupTimer = function() {
 	// timer全局变量
 	timer = {
 		state : "cursorOn",
@@ -146,19 +146,19 @@ function setupTimer() {
 							.removeClass("cursorOn");
 					this.state = "cursorOff";
 
-					self.setTimeout("timer.switchState()", 200);
+					self.setTimeout("timer.switchState()", 100);
 				} else if (this.state == "cursorOff") {
 					currentLine.children("p[id=cursor]").addClass("cursorOn");
 					this.state = "cursorOn";
 
-					self.setTimeout("timer.switchState()", 800);
+					self.setTimeout("timer.switchState()", 900);
 				}
 			}
 		}
 	};
 
 	timer.start();
-}
+};
 
 /**
  * 调试用的全局函数
