@@ -43,3 +43,10 @@ body{
 #rightClick a:hover{
 	color: white;
 }
+
+/* 模态框 */
+#modal{
+	color: white;
+	position: fixed;
+	display: none;
+}

@@ -48,10 +48,12 @@ Console.setupMouseListener = function() {
 				}
 			});
 
+	//右键菜单的点击监听，点击到的a元素的href属性中包含操作码
 	$("#rightClick").click(function(e) {
 				var operation = $(e.target).attr("href");
-
-				engine.operate(operation);
+				
+				if( operation )
+					engine.operate(operation);
 			});
 
 };
@@ -95,6 +97,10 @@ Console.setupKeyboardListener = function() {
 			});
 };
 
+
+/**
+ * 传入行对象，从中取出命令并交由引擎来执行
+ */
 Console.typeInCommand = function(line) {
 	var command = Console.extractCommand(line);
 
