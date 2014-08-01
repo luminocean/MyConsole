@@ -27,5 +27,19 @@ body{
 	top: 200px;
 	
 	background-color: orange;
+	color: black;
 	display: none;
+	border: groove;
+}
+#rightClick a{
+	display: block;
+	text-decoration: none;
+	color: inherit;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+#rightClick a:hover{
+	color: white;
 }

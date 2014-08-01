@@ -12,7 +12,25 @@ var Console = {};
  * @param {} pageY
  */
 Console.showRightClick = function(pageX, pageY){
-	$("#rightClick").css("display", "inherit");
+	//显示前先隐藏起来（为了能够连续的点击右键都显示需要的效果）
+	$("#rightClick").hide();
+	
+	$("#rightClick").css("left", pageX);
+	$("#rightClick").css("top", pageY);
+	
+	//debug("("+pageX+","+pageY+")");
+	
+	$("#rightClick").show(180);
+};
+
+
+/**
+ * 隐藏右键菜单
+ * @param {} pageX
+ * @param {} pageY
+ */
+Console.hideRightClick = function(){
+	$("#rightClick").hide();
 };
 
 /**
@@ -107,7 +125,7 @@ Console.erase = function(c, target) {
 Console.isDisplayable = function(code) {
 	if (code >= 32 && code <= 126)
 		return true;
-}
+};
 
 /**
  * 为指定目标添加一个新行

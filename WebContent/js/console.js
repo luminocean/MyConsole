@@ -12,9 +12,9 @@ $(document).ready(function() {
 			// 加载完所有js后回调的初始化函数
 			var initFunc = function() {
 				currentLine = Console.appendLineTo($("#console"));
-				setupKeyboardListener();
-				setupMouseListener();
-				// setupTimer();
+				Console.setupKeyboardListener();
+				Console.setupMouseListener();
+				// Console.setupTimer();
 			};
 
 			// 加载所有依赖的js脚本
@@ -24,43 +24,60 @@ $(document).ready(function() {
 			initFunc();
 		});
 
-		
-function setupMouseListener(){
-	$(document).click(function(e){
-		switch( e.which ){
-			//鼠标右键
-			case 3:
-				Console.showRightClick(e.pageX, e.pageX);
-				e.preventDefault();
-				break;
-		}
-	});
-	
-}
-		
-		
+Console.setupMouseListener = function() {
+	//主要是应对Chrome的右键监听
+	$(document).bind('contextmenu', function(e) { 
+		if( e.which == 3 )
+			Console.showRightClick(e.pageX, e.pageY);
+		return false;
+	}); 
+
+	//正常的鼠标监听
+	$(document).click(function(e) {
+				switch (e.which) {
+					// 鼠标右键
+					case 3 :
+						Console.showRightClick(e.pageX, e.pageY);
+						e.preventDefault();
+						break;
+					// 鼠标左键
+					case 1 :
+						Console.hideRightClick();
+						e.preventDefault();
+						break;
+				}
+			});
+
+	$("#rightClick").click(function(e) {
+				var operation = $(e.target).attr("href");
+
+				engine.operate(operation);
+			});
+
+};
+
 /**
  * 设置键盘监听
  */
-function setupKeyboardListener() {
-	//可显示字符部分
+Console.setupKeyboardListener = function() {
+	// 可显示字符部分
 	$(document).keypress(function(e) {
 				// 可显示字符直接接在当前行后面
 				if (Console.isDisplayable(e.which)) {
 					Console.write(String.fromCharCode(e.which), currentLine);
 				}
-				
+
 			});
 
 	$(document).keydown(function(e) {
-				//$("#debug").append(e.keyCode);
+				// $("#debug").append(e.keyCode);
 
 				// 回车键则换行
 				if (e.keyCode == 13) {
-					typeInCommand(currentLine);
+					Console.typeInCommand(currentLine);
 					currentLine = Console.appendLineTo($("#console"));
 				}
-				
+
 				// 删除键删除最后一个字符
 				if (e.keyCode == 8) {
 					Console.erase(String.fromCharCode(e.which), currentLine);
@@ -76,14 +93,14 @@ function setupKeyboardListener() {
 					Console.shiftCursor(true, currentLine);
 				}
 			});
-}
+};
 
-function typeInCommand(line) {
+Console.typeInCommand = function(line) {
 	var command = Console.extractCommand(line);
 
 	// 将命令传入引擎开始执行
 	engine.act(command);
-}
+};
 
 /**
  * 读取多个js进行加载
@@ -92,7 +109,7 @@ function typeInCommand(line) {
  *            callBack 全部加载完成后的回调函数
  * @param callBack后面跟不限定个数的js路径即可
  */
-function loadBatchJs(callBack) {
+Console.loadBatchJs = function(callBack) {
 	var loader = {
 		counter : arguments.length - 1,
 		finish : function() {
@@ -108,7 +125,7 @@ function loadBatchJs(callBack) {
 					loader.finish();
 				});
 	}
-}
+};
 
 /**
  * 设置计时器，主要用于让光标周期性的闪烁
@@ -141,4 +158,14 @@ function setupTimer() {
 	};
 
 	timer.start();
+}
+
+/**
+ * 调试用的全局函数
+ * 
+ * @param {}
+ *            msg
+ */
+function debug(msg) {
+	$("#debug").append(msg);
 }
