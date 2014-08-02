@@ -53,7 +53,7 @@ Console.setupMouseListener = function() {
 				var operation = $(e.target).attr("href");
 				
 				if( operation )
-					engine.operate(operation);
+					engine.operate(operation);				
 			});
 
 };

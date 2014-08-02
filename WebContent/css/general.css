@@ -30,6 +30,7 @@ body{
 	color: black;
 	display: none;
 	border: groove;
+	z-index: 2; /*要高于冻结层*/
 }
 #rightClick a{
 	display: block;
@@ -49,4 +50,5 @@ body{
 	color: white;
 	position: fixed;
 	display: none;
+	z-index: 2; /*要高于冻结层*/
 }

@@ -190,3 +190,29 @@ Console.extractCommand = function(line){
 	
 	return command;
 };
+
+/**
+ * 冻结屏幕阻止用户操作的方法
+ */
+Console.frozeScreen = function(){
+	$("#frozenLayer").remove();
+	
+	frozenLayer = $("<div></div>");
+	frozenLayer.attr("id", "frozenLayer");
+	frozenLayer.css("position", "fixed");
+	frozenLayer.css("left", 0);
+	frozenLayer.css("top", 0);
+	frozenLayer.css("height", $(window).height());
+	frozenLayer.css("width", $(window).width());
+	frozenLayer.css("z-index", 1);
+	frozenLayer.css("background-color", "rgba(0,0,0,0.5)");
+	
+	$("body").prepend(frozenLayer);
+};
+
+/**
+ * 解除冻结效果
+ */
+Console.defrozeScreen = function(){
+	$("#frozenLayer").remove();
+};

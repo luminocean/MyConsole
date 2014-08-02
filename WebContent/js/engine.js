@@ -71,6 +71,8 @@ Engine.native.clear = function() {
 
 
 Engine.native.showModal = function(content){
+	Console.frozeScreen();
+	
 	var modal = $("#modal").text(content);
 	//获取并设定模态框大小（虽然看起来很奇怪，放置遇到边缘的时候被挤压换行
 	var width = modal.width();
@@ -92,8 +94,9 @@ Engine.native.showModal = function(content){
 	
 	//时间到就调用的函数，把模态框再移回去
 	var callback = function(){
-		modal.animate({left: initX+"px", top:initY+"px"}, 500);
-	}
+		modal.animate({left: initX+"px", top:initY+"px"}, 500,
+				function(){Console.defrozeScreen();}
+		);
+	};
 	self.setTimeout(callback, 3000);
-	
 };
